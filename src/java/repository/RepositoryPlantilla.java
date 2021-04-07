@@ -70,13 +70,36 @@ public class RepositoryPlantilla{
             rs.close();
             cn.close();
             return plan;
-        } else {
+        } else{
             rs.close();
             cn.close();
             return null;
         }
     }
 
+    public List<Plantilla> getPlantillaSalario(int salario) throws SQLException{
+        Connection cn = this.getConnection();
+        String sql = "select * from plantilla where salario>?";
+        PreparedStatement pst = cn.prepareStatement(sql);
+        pst.setInt(1, salario);
+        ResultSet rs = pst.executeQuery();
+        ArrayList<Plantilla> plantilla = new ArrayList<>();
+        while(rs.next()){
+            int hcod = rs.getInt("HOSPITAL_COD");
+            int scod = rs.getInt("SALA_COD");
+            int empno = rs.getInt("EMPLEADO_NO");
+            String apellido = rs.getString("APELLIDO");
+            String funcion = rs.getString("FUNCION");
+            String turno = rs.getString("T");
+            int sal = rs.getInt("SALARIO");
+            Plantilla plan = new Plantilla(hcod, scod, empno, apellido, funcion, turno, sal);
+            plantilla.add(plan);
+        }
+        rs.close();
+        cn.close();
+        return plantilla;
+    }
+        
     public List<Plantilla> getPlantillaFuncion(String fun) throws SQLException{
         Connection cn = this.getConnection();
         String sql = "select * from plantilla where lower(funcion)=lower(?)";

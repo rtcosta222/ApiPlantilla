@@ -20,7 +20,7 @@ import repository.RepositoryPlantilla;
  *
  * @author lscar
  */
-@Path("plantilla")
+@Path("/plantilla")
 
 public class ServicePlantilla {
     
@@ -49,6 +49,14 @@ public class ServicePlantilla {
     @Produces(MediaType.APPLICATION_XML)
     public List<Plantilla> getPlantillaFuncion(@PathParam("funcion") String funcion) throws SQLException{
         return this.repo.getPlantillaFuncion(funcion);
+    }
+    
+    @GET
+    @Path("salario/{salario}")
+    @Produces(MediaType.APPLICATION_XML)
+    public List<Plantilla> getPlantillaSalario(@PathParam("salario") String salario) throws SQLException{
+        int sal = Integer.parseInt(salario);
+        return this.repo.getPlantillaSalario(sal);
     }
     
     @GET
