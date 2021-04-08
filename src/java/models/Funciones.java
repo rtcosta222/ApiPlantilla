@@ -30,5 +30,4 @@ public class Funciones {
     public void setFuncion(ArrayList<String> funcion) {
         this.funcion = funcion;
     }
-
 }
